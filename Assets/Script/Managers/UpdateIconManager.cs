@@ -11,6 +11,8 @@ public class UpdateIconManager : MonoBehaviour
     {
         _width = _gm.Width;
         _height = _gm.Height;
+        
+        PrintAllBlockNames();
     }
 
 
@@ -20,7 +22,7 @@ public class UpdateIconManager : MonoBehaviour
         {
             for (int j = 0; j < _height; j++)
             {
-                print(_board.allBlocks[i, j].name);
+                print(_board.allBlocks[i, j].GetComponent<IconMatch>().CheckIcons());
             }
         }
     }

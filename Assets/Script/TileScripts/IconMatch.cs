@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 public class IconMatch : MonoBehaviour
@@ -10,6 +12,10 @@ public class IconMatch : MonoBehaviour
     private int _height, _width;
 
     private bool _isChecked;
+    
+    private List<GameObject> _matchBlocks = new List<GameObject>();
+
+    private List<GameObject> _testList = new List<GameObject>();
 
     private void Start()
     {
@@ -32,9 +38,10 @@ public class IconMatch : MonoBehaviour
 
 
 //  TODO: kullanilacak :)
-    private int CheckIcons()
+    public int CheckIcons()
     {
-        if (_isChecked) return 1;
+        if (_isChecked) return 0;
+        
 
         int sum = 1;
 
@@ -43,6 +50,17 @@ public class IconMatch : MonoBehaviour
 
         sum += CheckForIcon(leftBlock1, rightBlock1, upBlock1, downBlock1);
 
+        foreach (var block in _matchBlocks)
+        {
+            if (!block.GetComponent<IconMatch>()._isChecked)
+            {
+                _testList.Add(block);
+            }
+            
+            sum += block.GetComponent<IconMatch>().CheckIcons();
+
+
+        }
         return sum;
     }
 
@@ -64,6 +82,7 @@ public class IconMatch : MonoBehaviour
         {
             _isChecked = true;
             block.GetComponent<IconMatch>()._isChecked = true;
+            _matchBlocks.Add(block);
             return 1;
         }
 
