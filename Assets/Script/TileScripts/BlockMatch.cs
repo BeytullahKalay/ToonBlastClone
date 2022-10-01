@@ -5,14 +5,14 @@ public class BlockMatch : MonoBehaviour
 {
     public List<GameObject> matchBlocks = new List<GameObject>();
     [HideInInspector] public bool isMatched;
-    
+
 
     private void OnMouseDown()
     {
-        FindMatchesF();
+        FindMatches();
     }
 
-    private void FindMatchesF()
+    public void FindMatches()
     {
         GetComponent<GetSideBlock>()
             .GetSideBlocks(out var leftBlock1, out var rightBlock1, out var upBlock1, out var downBlock1);
@@ -21,7 +21,7 @@ public class BlockMatch : MonoBehaviour
 
         foreach (var matchedBlock in matchBlocks)
         {
-            matchedBlock.GetComponent<BlockMatch>().FindMatchesF();
+            matchedBlock.GetComponent<BlockMatch>().FindMatches();
         }
     }
 
@@ -49,9 +49,18 @@ public class BlockMatch : MonoBehaviour
         isMatched = true;
         block.GetComponent<BlockMatch>().isMatched = true;
 
-        gameObject.SetActive(false);
-        block.SetActive(false);
-
         matchBlocks.Add(block);
+
+        KillMatch(gameObject);
+        KillMatch(block);
     }
+
+    private void KillMatch(GameObject matchObj)
+    {
+        var tileScript = GetComponent<Tile>();
+        matchObj.GetComponentInParent<Board>().allBlocks[tileScript.Width, tileScript.Height] = null;
+        Destroy(matchObj);
+    }
+
+
 }

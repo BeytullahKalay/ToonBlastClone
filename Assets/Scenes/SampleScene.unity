@@ -285,7 +285,7 @@ MonoBehaviour:
   b: 6
   c: 8
   height: 11
-  width: 8
+  width: 7
   numberOfColors: 3
   tilesAndTags:
   - SpriteDefault: {fileID: 21300000, guid: e2dd1cdd9b7ab8d4b9773fc94c1b16ad, type: 3}

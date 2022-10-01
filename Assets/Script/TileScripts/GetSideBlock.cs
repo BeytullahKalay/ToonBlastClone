@@ -15,8 +15,11 @@ public class GetSideBlock : MonoBehaviour
     private void Initialize()
     {
         _board = GetComponentInParent<Board>();
-        _column = (int)transform.localPosition.x;
-        _row = (int)transform.localPosition.y;
+        // _column = (int)transform.localPosition.x;
+        // _row = (int)transform.localPosition.y;
+        _column = GetComponent<Tile>().Width;
+        _row = GetComponent<Tile>().Height;
+        
         _height = GameManager.Instance.Height;
         _width = GameManager.Instance.Width;
     }

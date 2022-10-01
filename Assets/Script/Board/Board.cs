@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,15 +18,19 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
-        _gm = GameManager.Instance;
-        width = _gm.Width;
-        height = _gm.Height;
-        allBlocks = new GameObject[width, height];
-
+        Initialize();
         SelectTiles();
         SetUpTilesAndNames();
         SetUpCamera();
 
+    }
+
+    private void Initialize()
+    {
+        _gm = GameManager.Instance;
+        width = _gm.Width;
+        height = _gm.Height;
+        allBlocks = new GameObject[width, height];
     }
 
     private void SelectTiles()
@@ -51,6 +56,9 @@ public class Board : MonoBehaviour
                 tile.name = "( " + i + ", " + j + " )";
 
                 allBlocks[i, j] = tile;
+                
+                tile.GetComponent<Tile>().Width = i;
+                tile.GetComponent<Tile>().Height = j;
             }
         }
     }
@@ -62,6 +70,33 @@ public class Board : MonoBehaviour
         
         Camera.main.transform.position = new Vector3(x, y, -10);
     }
+
+    private void CheckRows()
+    {
+        int nullCount = 0;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (allBlocks[i,j] == null)
+                    nullCount++;
+                else if (nullCount > 0)
+                    allBlocks[i,j].GetComponent<Collaps>().MoveDownBlock(nullCount);
+            }
+            nullCount = 0;
+        }
+    }
     
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         print("input getted");
+    //         CheckRows();
+    //     }
+    // }
+    
+    
+
     public TileAndTag GetRandomTileFromSelectedTiles => _selectedTiles[Random.Range(0,_selectedTiles.Count)];
 }

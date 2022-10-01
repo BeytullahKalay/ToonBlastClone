@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class IconMatch : MonoBehaviour
@@ -11,7 +9,7 @@ public class IconMatch : MonoBehaviour
 
     private GameManager _gm;
 
-    public bool _isChecked;
+    private bool _isChecked;
 
     private void Start()
     {
@@ -91,15 +89,6 @@ public class IconMatch : MonoBehaviour
         foreach (var block in UpVisitedList)
         {
             block.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            print("called");
-            CheckIconStuff();
         }
     }
 }

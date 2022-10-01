@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    [HideInInspector] public int Height,Width;
 
     private SpriteRenderer _spriteRenderer;
 
