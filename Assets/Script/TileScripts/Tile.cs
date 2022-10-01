@@ -24,8 +24,8 @@ public class Tile : MonoBehaviour
         _spriteRenderer.sortingOrder = renderingOrder;
     }
 
-    public Sprite GetAConditionSprite => _tileAndTag.SpriteA;
-    public Sprite GetBConditionSprite => _tileAndTag.SpriteB;
-    public Sprite GetCConditionSprite => _tileAndTag.SpriteC;
+    public Sprite Get_A_ConditionSprite => _tileAndTag.SpriteA;
+    public Sprite Get_B_ConditionSprite => _tileAndTag.SpriteB;
+    public Sprite Get_C_ConditionSprite => _tileAndTag.SpriteC;
     public Sprite GetDefaultConditionSprite => _tileAndTag.SpriteDefault;
 }

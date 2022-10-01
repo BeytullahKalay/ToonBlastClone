@@ -281,11 +281,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1900249842506843a2c9fcd27a069a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: 2
-  b: 7
-  c: 9
-  height: 5
-  width: 9
+  a: 4
+  b: 6
+  c: 8
+  height: 11
+  width: 8
   numberOfColors: 3
   tilesAndTags:
   - SpriteDefault: {fileID: 21300000, guid: e2dd1cdd9b7ab8d4b9773fc94c1b16ad, type: 3}
@@ -314,7 +314,7 @@ MonoBehaviour:
     SpriteC: {fileID: 21300000, guid: 32855cec633e725479df100a5cd327a5, type: 3}
     Tag: Red
   - SpriteDefault: {fileID: 21300000, guid: 2a08bd08f046f684b9f872f960ba0f65, type: 3}
-    SpriteA: {fileID: 21300000, guid: 935d4d08d497bdf438d2130d03dd8681, type: 3}
+    SpriteA: {fileID: 21300000, guid: a674d7aa8408a054489c59e97a592438, type: 3}
     SpriteB: {fileID: 21300000, guid: 935d4d08d497bdf438d2130d03dd8681, type: 3}
     SpriteC: {fileID: 21300000, guid: b1c6c0eb5e70f3b4c9eeb45a9b0f4c42, type: 3}
     Tag: Yellow
