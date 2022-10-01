@@ -13,6 +13,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private int height = 11;
     [SerializeField] private int width = 5;
     
+    [Space(10)]
     
     [SerializeField] private TileAndTag[] tilesAndTags;
 
@@ -20,6 +21,9 @@ public class GameManager : MonoSingleton<GameManager>
 
     public int Height => height;
     public int Width => width;
+    public int A_Condition => a;
+    public int B_Condition => b;
+    public int C_Condition => c;
 
 }
 

@@ -24,21 +24,13 @@ public class Tile : MonoBehaviour
         _spriteRenderer.sortingOrder = renderingOrder;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // public Sprite GetAConditionSprite()
+    // {
+    //     return _tileAndTag.SpriteA;
+    // }
     
-
+    public Sprite GetAConditionSprite => _tileAndTag.SpriteA;
+    public Sprite GetBConditionSprite => _tileAndTag.SpriteB;
+    public Sprite GetCConditionSprite => _tileAndTag.SpriteC;
+    public Sprite GetDefaultConditionSprite => _tileAndTag.SpriteDefault;
 }

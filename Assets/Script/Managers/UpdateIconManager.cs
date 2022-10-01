@@ -22,7 +22,7 @@ public class UpdateIconManager : MonoBehaviour
         {
             for (int j = 0; j < _height; j++)
             {
-                print(_board.allBlocks[i, j].GetComponent<IconMatch>().CheckIcons());
+                _board.allBlocks[i, j].GetComponent<IconMatch>().CheckIconStuff();
             }
         }
     }

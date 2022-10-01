@@ -1,91 +1,98 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Build.Reporting;
+using TMPro;
 using UnityEngine;
 
 public class IconMatch : MonoBehaviour
 {
-    private Board _board;
+    private SpriteRenderer _renderer;
+
+    private List<IconMatch> _iconList = new List<IconMatch>();
+    
+    public List<GameObject> UpVisitedList = new List<GameObject>();
 
     private GameManager _gm;
 
-    private int _height, _width;
-
     private bool _isChecked;
-    
-    private List<GameObject> _matchBlocks = new List<GameObject>();
-
-    private List<GameObject> _testList = new List<GameObject>();
 
     private void Start()
     {
-        GetBoardAndGM();
-        GetHeightAndWidth();
-    }
-
-    private void GetBoardAndGM()
-    {
-        _board = GetComponent<Board>();
+        _renderer = GetComponent<SpriteRenderer>();
         _gm = GameManager.Instance;
     }
 
-    private void GetHeightAndWidth()
-    {
-        _height = _gm.Height;
-        _width = _gm.Width;
-    }
 
-
-
-//  TODO: kullanilacak :)
-    public int CheckIcons()
+    private int CheckIcons(List<GameObject> visitList)
     {
         if (_isChecked) return 0;
-        
 
-        int sum = 1;
+        _isChecked = true;
 
-        GetComponent<GetSideBlock>()
-            .GetSideBlocks(out var leftBlock1, out var rightBlock1, out var upBlock1, out var downBlock1);
-
-        sum += CheckForIcon(leftBlock1, rightBlock1, upBlock1, downBlock1);
-
-        foreach (var block in _matchBlocks)
+        if (!visitList.Contains(gameObject))
         {
-            if (!block.GetComponent<IconMatch>()._isChecked)
-            {
-                _testList.Add(block);
-            }
-            
-            sum += block.GetComponent<IconMatch>().CheckIcons();
-
-
+            visitList.Add(gameObject);
         }
+
+
+        int sum = 0;
+
+        GetComponent<GetSideBlock>().GetSideBlocks(out var leftBlock1, out var rightBlock1, out var upBlock1, out var downBlock1);
+
+        sum += CheckForIcon(leftBlock1, rightBlock1, upBlock1, downBlock1, visitList);
+
+        foreach (var block in _iconList)
+        {
+            sum += block.GetComponent<IconMatch>().CheckIcons(visitList);
+        }
+
         return sum;
     }
 
-    private int CheckForIcon(GameObject leftBlock1, GameObject rightBlock1, GameObject upBlock1, GameObject downBlock1)
+    private int CheckForIcon(GameObject leftBlock1, GameObject rightBlock1, GameObject upBlock1, GameObject downBlock1, List<GameObject> visitedList)
     {
         int sum = 0;
-        sum += CheckIconBlockMatch(leftBlock1);
-        sum += CheckIconBlockMatch(rightBlock1);
-        sum += CheckIconBlockMatch(upBlock1);
-        sum += CheckIconBlockMatch(downBlock1);
+        sum += CheckIconBlockMatch(leftBlock1, visitedList);
+        sum += CheckIconBlockMatch(rightBlock1, visitedList);
+        sum += CheckIconBlockMatch(upBlock1, visitedList);
+        sum += CheckIconBlockMatch(downBlock1, visitedList);
         return sum;
     }
 
-    private int CheckIconBlockMatch(GameObject block)
+    private int CheckIconBlockMatch(GameObject block, List<GameObject> visitList)
     {
         if (block == null) return 0;
 
         if (block.CompareTag(gameObject.tag) && !block.GetComponent<IconMatch>()._isChecked)
         {
-            _isChecked = true;
-            block.GetComponent<IconMatch>()._isChecked = true;
-            _matchBlocks.Add(block);
+            _iconList.Add(block.GetComponent<IconMatch>());
+            
+            visitList.Add(block);
+
             return 1;
         }
+        else
+            return 0;
+    }
 
-        return 0;
+    public void CheckIconStuff()
+    {
+        var t = CheckIcons(UpVisitedList) + 1;
+        var conditionA = _gm.A_Condition;
+        var conditionB = _gm.B_Condition;
+        var conditionC = _gm.C_Condition;
+
+        var sprite = GetComponent<Tile>().GetDefaultConditionSprite;
+        
+        if (t > conditionA && t < conditionB)
+            sprite = GetComponent<Tile>().GetAConditionSprite;
+        else if (t > conditionB && t < conditionC)
+            sprite = GetComponent<Tile>().GetBConditionSprite;
+        else if(t > conditionC)
+            sprite = GetComponent<Tile>().GetCConditionSprite;
+
+        foreach (var block in UpVisitedList)
+        {
+            block.GetComponent<SpriteRenderer>().sprite = sprite;
+        }
     }
 }
