@@ -12,6 +12,7 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Map Values")]
     [SerializeField] private int height = 11;
     [SerializeField] private int width = 5;
+    [Range(1,6)][SerializeField] private int numberOfColors = 5;
     
     [Space(10)]
     
@@ -21,6 +22,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public int Height => height;
     public int Width => width;
+    public int NumberOfColors => numberOfColors;
     public int A_Condition => a;
     public int B_Condition => b;
     public int C_Condition => c;

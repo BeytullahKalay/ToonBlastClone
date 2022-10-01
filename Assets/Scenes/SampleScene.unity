@@ -284,8 +284,9 @@ MonoBehaviour:
   a: 2
   b: 7
   c: 9
-  height: 10
-  width: 7
+  height: 5
+  width: 9
+  numberOfColors: 3
   tilesAndTags:
   - SpriteDefault: {fileID: 21300000, guid: e2dd1cdd9b7ab8d4b9773fc94c1b16ad, type: 3}
     SpriteA: {fileID: 21300000, guid: 9b054d4bfc349a346b1f89661ee0a212, type: 3}

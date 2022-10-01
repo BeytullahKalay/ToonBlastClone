@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
     private void Initialize()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _tileAndTag = GameManager.Instance.GetRandomTileAndTag;
+        _tileAndTag = GetComponentInParent<Board>().GetRandomTileFromSelectedTiles;
         
         _spriteRenderer.sprite = _tileAndTag.SpriteDefault;
         gameObject.tag = _tileAndTag.Tag;
@@ -24,11 +24,6 @@ public class Tile : MonoBehaviour
         _spriteRenderer.sortingOrder = renderingOrder;
     }
 
-    // public Sprite GetAConditionSprite()
-    // {
-    //     return _tileAndTag.SpriteA;
-    // }
-    
     public Sprite GetAConditionSprite => _tileAndTag.SpriteA;
     public Sprite GetBConditionSprite => _tileAndTag.SpriteB;
     public Sprite GetCConditionSprite => _tileAndTag.SpriteC;
