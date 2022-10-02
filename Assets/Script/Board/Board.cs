@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
@@ -13,10 +13,19 @@ public class Board : MonoBehaviour
     
     private GameManager _gm;
     
-    private int width, height;
+    private int _width, _height;
 
     private List<TileAndTag> _selectedTiles = new List<TileAndTag>();
 
+    private void OnEnable()
+    {
+        EventManager.OnBlockDestroyingActions += OnBlockDestroyingAction;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnBlockDestroyingActions -= OnBlockDestroyingAction;
+    }
 
     private void Awake()
     {
@@ -30,9 +39,9 @@ public class Board : MonoBehaviour
     private void Initialize()
     {
         _gm = GameManager.Instance;
-        width = _gm.Width;
-        height = _gm.Height;
-        allBlocks = new GameObject[width, height];
+        _width = _gm.Width;
+        _height = _gm.Height;
+        allBlocks = new GameObject[_width, _height];
     }
 
     private void SelectTiles()
@@ -49,9 +58,9 @@ public class Board : MonoBehaviour
 
     private void SetUpTilesAndNames()
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < _width; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < _height; j++)
             {
                var obj = CreateTileAt(i, j);
                var tet = obj.GetComponents<Initializer>();
@@ -75,8 +84,8 @@ public class Board : MonoBehaviour
 
     private void SetUpCamera()
     {
-        float x = width % 2 == 0 ? (width / 2) - .5f : (width / 2);
-        float y = height % 2 == 0 ? (height / 2) - .5f : (height / 2);
+        float x = _width % 2 == 0 ? (_width / 2) - .5f : (_width / 2);
+        float y = _height % 2 == 0 ? (_height / 2) - .5f : (_height / 2);
         
         Camera.main.transform.position = new Vector3(x, y, -10);
     }
@@ -84,9 +93,9 @@ public class Board : MonoBehaviour
     private void CheckRows()
     {
         int nullCount = 0;
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < _width; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < _height; j++)
             {
                 if (allBlocks[i,j] == null)
                     nullCount++;
@@ -99,9 +108,9 @@ public class Board : MonoBehaviour
 
     private void RefillBoard()
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < _width; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < _height; j++)
             {
                 if (allBlocks[i,j] == null)
                 {
@@ -121,12 +130,20 @@ public class Board : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CheckRows();
-            RefillBoard();
+            EventManager.OnBlockDestroyingActions?.Invoke();
         }
     }
-    
-    
+
+    private void OnBlockDestroyingAction()
+    {
+        CheckRows();
+        RefillBoard();
+    }
+
+    // private IEnumerator Test()
+    // {
+    //     tim
+    // }
 
     public TileAndTag GetRandomTileFromSelectedTiles => _selectedTiles[Random.Range(0,_selectedTiles.Count)];
 }
