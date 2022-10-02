@@ -140,10 +140,5 @@ public class Board : MonoBehaviour
         RefillBoard();
     }
 
-    // private IEnumerator Test()
-    // {
-    //     tim
-    // }
-
     public TileAndTag GetRandomTileFromSelectedTiles => _selectedTiles[Random.Range(0,_selectedTiles.Count)];
 }
