@@ -284,11 +284,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   a: 4
-  b: 6
-  c: 8
-  height: 11
-  width: 7
-  numberOfColors: 3
+  b: 7
+  c: 9
+  height: 12
+  width: 10
+  numberOfColors: 6
   spawnOffset: 6
   fallSpeed: 12
   collapsingSpeed: 13
