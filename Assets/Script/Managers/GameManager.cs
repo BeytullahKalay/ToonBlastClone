@@ -13,6 +13,13 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private int height = 11;
     [SerializeField] private int width = 5;
     [Range(1,6)][SerializeField] private int numberOfColors = 5;
+
+    [Header("Collapsing Values")]
+    [SerializeField] private float spawnOffset = 10f;
+    [SerializeField] private float fallSpeed = 15f;
+    [SerializeField] private float collapsingSpeed = 15f;
+
+    
     
     [Space(10)]
     
@@ -26,6 +33,11 @@ public class GameManager : MonoSingleton<GameManager>
     public int A_Condition => a;
     public int B_Condition => b;
     public int C_Condition => c;
+
+
+    public float SpawnOffset => spawnOffset;
+    public float CollapsingSpeed => collapsingSpeed;
+    public float FallSpeed => fallSpeed;
 
 }
 

@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3260161640548286265, guid: 972e00dfe5667a24a8ec915bfc2a84b7, type: 3}
   updateIconManager: {fileID: 1596478307}
+  CanGetInput: 1
 --- !u!4 &444402248
 Transform:
   m_ObjectHideFlags: 0
@@ -288,6 +289,9 @@ MonoBehaviour:
   height: 11
   width: 7
   numberOfColors: 3
+  spawnOffset: 6
+  fallSpeed: 12
+  collapsingSpeed: 13
   tilesAndTags:
   - SpriteDefault: {fileID: 21300000, guid: e2dd1cdd9b7ab8d4b9773fc94c1b16ad, type: 3}
     SpriteA: {fileID: 21300000, guid: 9b054d4bfc349a346b1f89661ee0a212, type: 3}

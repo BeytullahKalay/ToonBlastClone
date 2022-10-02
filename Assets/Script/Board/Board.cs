@@ -8,6 +8,8 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject tilePrefab;
 
     [SerializeField] private UpdateIconManager updateIconManager;
+
+    public bool CanGetInput = true;
     
     public GameObject[,] allBlocks;
     

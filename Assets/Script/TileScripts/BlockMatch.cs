@@ -7,11 +7,19 @@ public class BlockMatch : MonoBehaviour
     [HideInInspector] public List<GameObject> matchBlocks = new List<GameObject>();
     [HideInInspector] public bool isMatched;
 
+    private Board _board;
+
     private bool _mouseInput;
+
+    private void Start()
+    {
+        _board = GetComponentInParent<Board>();
+    }
 
     private void OnMouseDown()
     {
-        FindMatches(true);
+        if (_board.CanGetInput)
+            FindMatches(true);
     }
 
     private void FindMatches(bool mouseInput)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class Collaps : Initializer
 {
@@ -11,11 +12,8 @@ public class Collaps : Initializer
     private SpriteRenderer _renderer;
 
     private GetSideBlock _sideBlock;
-    
-    private void Start()
-    {
-        Initialize();
-    }
+
+    private GameManager _gm;
 
     public override void Initialize()
     {
@@ -23,6 +21,7 @@ public class Collaps : Initializer
         _tile = GetComponent<Tile>();
         _renderer = GetComponent<SpriteRenderer>();
         _sideBlock = GetComponent<GetSideBlock>();
+        _gm = GameManager.Instance;
 
         _curHeight = _tile.Height;
         _curWidth = _tile.Width;
@@ -41,7 +40,12 @@ public class Collaps : Initializer
     {
         var desPos = transform.position;
         desPos.y -= moveDownAmount;
-        transform.position = desPos;
+
+        transform.DOLocalMoveY(desPos.y,_gm.CollapsingSpeed).SetSpeedBased().SetEase(Ease.InQuad).OnComplete(() =>
+        {
+            transform.DOMoveY(transform.position.y - .10f, .065f).SetLoops(2, LoopType.Yoyo);
+        });
+        
         return desPos;
     }
 
