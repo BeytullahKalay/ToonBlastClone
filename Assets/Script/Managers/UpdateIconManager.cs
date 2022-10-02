@@ -11,13 +11,21 @@ public class UpdateIconManager : MonoBehaviour
     {
         _width = _gm.Width;
         _height = _gm.Height;
-        
-        PrintAllBlockNames();
+
+        SetIcons();
     }
 
-
-    private void PrintAllBlockNames()
+    public void SetIcons()
     {
+        for (int i = 0; i < _width; i++)
+        {
+            for (int j = 0; j < _height; j++)
+            {
+                _board.allBlocks[i, j].GetComponent<IconMatch>().PrepareIconSet();
+            }
+        }
+
+
         for (int i = 0; i < _width; i++)
         {
             for (int j = 0; j < _height; j++)

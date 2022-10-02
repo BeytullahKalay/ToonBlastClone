@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c37fb4f739a80d4d9cb17cd976dde07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Height: 0
+  Width: 0
+  _spriteRenderer: {fileID: 5087386967507771626}
 --- !u!114 &-8212539429861338798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08567a19c16612c4cb83e67fda7772a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _row: 0
+  _column: 0
 --- !u!114 &8225964269639249492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b5525e2ba954543a0193175847dad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpVisitedList: []
+  _tile: {fileID: 8763833402098752465}
   _isChecked: 0
 --- !u!114 &4469889261522514270
 MonoBehaviour:

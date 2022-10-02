@@ -6,6 +6,8 @@ public class Board : MonoBehaviour
 {
 
     [SerializeField] private GameObject tilePrefab;
+
+    [SerializeField] private UpdateIconManager updateIconManager;
     
     public GameObject[,] allBlocks;
     
@@ -51,16 +53,24 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                var tile = Instantiate(tilePrefab, new Vector2(i, j), Quaternion.identity);
-                tile.transform.SetParent(transform);
-                tile.name = "( " + i + ", " + j + " )";
-
-                allBlocks[i, j] = tile;
-                
-                tile.GetComponent<Tile>().Width = i;
-                tile.GetComponent<Tile>().Height = j;
+               var obj = CreateTileAt(i, j);
+               var tet = obj.GetComponents<Initializer>();
+               foreach (var initializer in tet)
+               {
+                   initializer.Initialize();
+               }
             }
         }
+    }
+
+    private GameObject CreateTileAt(int i, int j)
+    {
+        var tile = Instantiate(tilePrefab, new Vector2(i, j), Quaternion.identity);
+        tile.transform.SetParent(transform);
+        tile.name = "( " + i + ", " + j + " )";
+        allBlocks[i, j] = tile;
+        tile.GetComponent<Tile>().UpdateValues(j, i);
+        return tile;
     }
 
     private void SetUpCamera()
@@ -86,15 +96,35 @@ public class Board : MonoBehaviour
             nullCount = 0;
         }
     }
+
+    private void RefillBoard()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (allBlocks[i,j] == null)
+                {
+                    var obj = CreateTileAt(i, j);
+                    var tet = obj.GetComponents<Initializer>();
+                    foreach (var initializer in tet)
+                    {
+                        initializer.Initialize();
+                    }
+                }
+            }
+        }
+        updateIconManager.SetIcons();
+    }
     
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.E))
-    //     {
-    //         print("input getted");
-    //         CheckRows();
-    //     }
-    // }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CheckRows();
+            RefillBoard();
+        }
+    }
     
     
 

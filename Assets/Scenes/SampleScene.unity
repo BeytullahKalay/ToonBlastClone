@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3260161640548286265, guid: 972e00dfe5667a24a8ec915bfc2a84b7, type: 3}
+  updateIconManager: {fileID: 1596478307}
 --- !u!4 &444402248
 Transform:
   m_ObjectHideFlags: 0

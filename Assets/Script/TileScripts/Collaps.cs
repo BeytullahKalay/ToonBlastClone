@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Collaps : MonoBehaviour
+public class Collaps : Initializer
 {
     private Board _board;
 
@@ -10,22 +10,19 @@ public class Collaps : MonoBehaviour
 
     private SpriteRenderer _renderer;
 
-    private BlockMatch _blockMatch;
-
-    private IconMatch _iconMatch;
-
+    private GetSideBlock _sideBlock;
+    
     private void Start()
     {
         Initialize();
     }
 
-    private void Initialize()
+    public override void Initialize()
     {
         _board = GetComponentInParent<Board>();
         _tile = GetComponent<Tile>();
         _renderer = GetComponent<SpriteRenderer>();
-        _blockMatch = GetComponent<BlockMatch>();
-        _iconMatch = GetComponent<IconMatch>();
+        _sideBlock = GetComponent<GetSideBlock>();
 
         _curHeight = _tile.Height;
         _curWidth = _tile.Width;
@@ -33,10 +30,11 @@ public class Collaps : MonoBehaviour
 
     public void MoveDownBlock(int moveDownAmount)
     {
-        print("on positioning");
         var desPos = UpdatePos(moveDownAmount);
         UpdateArrayPos((int)desPos.y);
         UpdateSpriteRenderingOrder((int)desPos.y);
+        _tile.UpdateValues(_curHeight,_curWidth);
+        _sideBlock.UpdateValues(_curHeight,_curWidth);
     }
 
     private Vector3 UpdatePos(int moveDownAmount)
@@ -57,5 +55,6 @@ public class Collaps : MonoBehaviour
         _board.allBlocks[_curWidth, newPosY] = _board.allBlocks[_curWidth, _curHeight];
         _board.allBlocks[_curWidth, _curHeight] = null;
         _curHeight = newPosY;
+        gameObject.name = "( " + _curWidth + ", " + _curHeight + " )";
     }
 }

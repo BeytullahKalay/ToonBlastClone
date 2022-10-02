@@ -12,8 +12,10 @@ public class BlockMatch : MonoBehaviour
         FindMatches();
     }
 
-    public void FindMatches()
+    private void FindMatches()
     {
+        matchBlocks.Clear();
+        
         GetComponent<GetSideBlock>()
             .GetSideBlocks(out var leftBlock1, out var rightBlock1, out var upBlock1, out var downBlock1);
 

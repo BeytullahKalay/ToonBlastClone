@@ -1,19 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IconMatch : MonoBehaviour
+public class IconMatch : Initializer
 {
+    [SerializeField] private Tile _tile;
+    
     private List<IconMatch> _iconList = new List<IconMatch>();
 
-    public List<GameObject> UpVisitedList = new List<GameObject>();
+    private List<GameObject> UpVisitedList = new List<GameObject>();
 
     private GameManager _gm;
+    
+    public bool _isChecked;
 
-    private bool _isChecked;
-
-    private void Start()
+    public override void Initialize()
     {
         _gm = GameManager.Instance;
+    }
+    
+
+    public void PrepareIconSet()
+    {
+        _isChecked = false;
+        UpVisitedList.Clear();
+        _iconList.Clear();
     }
 
 
@@ -77,18 +87,20 @@ public class IconMatch : MonoBehaviour
         var conditionB = _gm.B_Condition;
         var conditionC = _gm.C_Condition;
 
-        var sprite = GetComponent<Tile>().GetDefaultConditionSprite;
+        var sprite = _tile.Get_Default_ConditionSprite;
 
         if (t > conditionA && t <= conditionB)
-            sprite = GetComponent<Tile>().Get_A_ConditionSprite;
+            sprite = _tile.Get_A_ConditionSprite;
         else if (t > conditionB && t <= conditionC)
-            sprite = GetComponent<Tile>().Get_B_ConditionSprite;
+            sprite = _tile.Get_B_ConditionSprite;
         else if (t > conditionC)
-            sprite = GetComponent<Tile>().Get_C_ConditionSprite;
+            sprite = _tile.Get_C_ConditionSprite;
 
         foreach (var block in UpVisitedList)
         {
             block.GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
+
+
 }
